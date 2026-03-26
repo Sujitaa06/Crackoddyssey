@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crack Odyssey – Dungeon of Knowledge</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x2694;</text></svg>">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/start-gate.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/level-map.css">
+    <link rel="stylesheet" href="css/maze.css">
+    <link rel="stylesheet" href="css/quiz.css">
+    <link rel="stylesheet" href="css/level3.css">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Start Gate Screen -->
+        <div id="screen-start-gate" class="screen active">
+            <div class="torch torch-left"></div>
+            <div class="torch torch-right"></div>
+            <div class="gate-container">
+                <h1 class="game-title">⚔️ Crack Odyssey</h1>
+                <p class="game-subtitle">Dungeon of Knowledge</p>
+
+                <!-- Main Menu -->
+                <div id="start-menu" class="gate-panel">
+                    <button class="btn btn-primary" id="btn-login-show">🔑 Login</button>
+                    <button class="btn btn-secondary" id="btn-register-show">📜 Register</button>
+                    <button class="btn btn-adventure" id="btn-start-adventure">⚔️ Start Adventure</button>
+                </div>
+
+                <!-- Login Form -->
+                <div id="login-form" class="gate-panel hidden">
+                    <h2>🔑 Enter the Dungeon</h2>
+                    <div class="form-group">
+                        <label for="login-username">Username</label>
+                        <input type="text" id="login-username" placeholder="Enter username" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" placeholder="Enter password">
+                    </div>
+                    <p id="login-error" class="error-msg hidden"></p>
+                    <button class="btn btn-primary" id="btn-login-submit">Enter</button>
+                    <button class="btn btn-link" id="btn-login-back">← Back</button>
+                </div>
+
+                <!-- Register Form -->
+                <div id="register-form" class="gate-panel hidden">
+                    <h2>📜 Create Your Legend</h2>
+                    <div class="form-group">
+                        <label for="reg-username">Username</label>
+                        <input type="text" id="reg-username" placeholder="Choose a username" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Password</label>
+                        <input type="password" id="reg-password" placeholder="Choose a password">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-confirm">Confirm Password</label>
+                        <input type="password" id="reg-confirm" placeholder="Confirm password">
+                    </div>
+                    <p id="register-error" class="error-msg hidden"></p>
+                    <button class="btn btn-primary" id="btn-register-submit">Create Account</button>
+                    <button class="btn btn-link" id="btn-register-back">← Back</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Screen -->
+        <div id="screen-dashboard" class="screen">
+            <div class="dashboard-topbar">
+                <div class="topbar-left">
+                    <span class="logo-small">⚔️ Crack Odyssey</span>
+                </div>
+                <div class="topbar-center">
+                    <span id="dash-username" class="topbar-username"></span>
+                </div>
+                <div class="topbar-right">
+                    <span class="coin-display">🪙 <span id="dash-coins">0</span></span>
+                    <span class="xp-display">⭐ <span id="dash-xp">0</span> XP</span>
+                    <button class="btn-icon" id="btn-settings" title="Settings">⚙️</button>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="profile-card">
+                    <div class="profile-avatar" id="dash-avatar">🧙</div>
+                    <h2 id="dash-player-name"></h2>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-label">Level</span>
+                            <span class="stat-value" id="dash-level">1</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Total XP</span>
+                            <span class="stat-value" id="dash-total-xp">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Rank</span>
+                            <span class="stat-value" id="dash-rank">Novice</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-card">
+                    <h3>📊 Progress</h3>
+                    <div class="progress-row">
+                        <span>Levels Completed</span>
+                        <span id="dash-levels-done">0 / 2</span>
+                    </div>
+                    <div class="progress-row">
+                        <span>Maze Progress</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="dash-maze-progress" style="width:0%"></div>
+                        </div>
+                    </div>
+                    <div class="progress-row">
+                        <span>Achievements</span>
+                        <span id="dash-achievements">0</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-adventure btn-large" id="btn-continue-adventure">⚔️ Continue Adventure</button>
+            </div>
+
+            <button class="btn-map" id="btn-open-map" title="Level Map">🗺️</button>
+        </div>
+
+        <!-- Level Map Screen -->
+        <div id="screen-level-map" class="screen">
+            <div class="map-header">
+                <button class="btn-icon" id="btn-map-back">← Back</button>
+                <h2>🗺️ Dungeon Map</h2>
+                <div></div>
+            </div>
+            <div class="map-container" id="level-map-container">
+                <!-- Level nodes generated by JS -->
+            </div>
+        </div>
+
+        <!-- Maze Screen -->
+        <div id="screen-maze" class="screen">
+            <div class="maze-hud">
+                <button class="btn-icon" id="btn-maze-back">← Exit</button>
+                <h3 id="maze-level-title">Level 1</h3>
+                <div class="maze-rewards-count">
+                    <span>💎 <span id="maze-collected">0</span> / <span id="maze-total">15</span></span>
+                </div>
+            </div>
+            <div class="maze-area">
+                <canvas id="maze-canvas"></canvas>
+            </div>
+            <div class="maze-controls">
+                <button class="ctrl-btn" data-dir="up">▲</button>
+                <div class="ctrl-row">
+                    <button class="ctrl-btn" data-dir="left">◀</button>
+                    <button class="ctrl-btn" data-dir="down">▼</button>
+                    <button class="ctrl-btn" data-dir="right">▶</button>
+                </div>
+            </div>
+            <!-- Learning Popup -->
+            <div id="learning-popup" class="popup hidden">
+                <div class="popup-content">
+                    <h3 id="popup-title"></h3>
+                    <p id="popup-explanation"></p>
+                    <div class="popup-example">
+                        <strong>Example:</strong>
+                        <p id="popup-example"></p>
+                    </div>
+                    <button class="btn btn-primary" id="popup-close">Got it! ✓</button>
+                </div>
+            </div>
+            <!-- Exit Unlocked Popup -->
+            <div id="exit-popup" class="popup hidden">
+                <div class="popup-content">
+                    <h3>🚪 Exit Unlocked!</h3>
+                    <p>You've collected all the knowledge gems! The exit door is now open.</p>
+                    <button class="btn btn-primary" id="exit-popup-close">Continue →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="screen-quiz" class="screen">
+            <div class="quiz-header">
+                <h2 id="quiz-title">Level 1 – Knowledge Test</h2>
+                <div class="quiz-progress">
+                    Question <span id="quiz-current">1</span> / <span id="quiz-total">5</span>
+                </div>
+            </div>
+            <div class="quiz-body">
+                <div class="quiz-question" id="quiz-question"></div>
+                <div class="quiz-options" id="quiz-options">
+                    <!-- Options generated by JS -->
+                </div>
+                <p id="quiz-feedback" class="hidden"></p>
+                <p id="quiz-explanation" class="hidden"></p>
+                <button class="btn btn-primary hidden" id="btn-quiz-next">Next →</button>
+            </div>
+            <!-- Quiz Complete -->
+            <div id="quiz-complete" class="hidden">
+                <div class="quiz-result">
+                    <h2 id="quiz-result-title">🏆 Level Complete!</h2>
+                    <div id="quiz-stars" class="quiz-stars"></div>
+                    <p>Score: <span id="quiz-score"></span></p>
+                    <p id="quiz-result-msg" class="quiz-result-msg"></p>
+                    <p>XP Earned: <span id="quiz-xp-earned"></span></p>
+                    <button class="btn btn-adventure" id="btn-quiz-finish">Continue →</button>
+                    <button class="btn btn-secondary hidden" id="btn-quiz-retry">🔄 Try Again</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 3 Screen: Encapsulation Lock System -->
+        <div id="screen-level3" class="screen">
+            <div class="level3-hud">
+                <button class="btn-icon" id="btn-level3-back">← Exit</button>
+                <h3>Level 3 – Encapsulation Lock System</h3>
+                <div class="level3-step-badge">Step <span id="l3-step">0</span> / 3</div>
+            </div>
+            <div class="level3-content">
+                <!-- Vault -->
+                <div class="vault-container">
+                    <div id="vault-door" class="vault-door locked">
+                        <div class="vault-ring"></div>
+                        <div class="vault-handle" id="vault-handle">🔐</div>
+                        <div class="vault-status" id="vault-status">LOCKED</div>
+                    </div>
+                    <p id="vault-warning" class="vault-warning">⚠️ System Vulnerable: Public Access Detected</p>
+                </div>
+                <!-- Code Panel -->
+                <div class="l3-code-panel">
+                    <div class="l3-code-header">
+                        <span class="l3-code-lang">☕ Java</span>
+                        <span class="l3-code-title">Account.java</span>
+                    </div>
+                    <pre id="l3-code-display" class="l3-code-display">class Account {
+    public int balance;
+}</pre>
+                    <div id="l3-error-msg" class="l3-error-msg hidden">❌ Wrong order! Follow: Private → Getter → Setter</div>
+                </div>
+                <!-- Actions -->
+                <div class="l3-actions">
+                    <p class="l3-instruction">Fix the vulnerability by applying encapsulation in order:</p>
+                    <div class="l3-btn-group">
+                        <button class="l3-action-btn" id="btn-make-private" data-step="1">
+                            <span class="l3-btn-icon">🔒</span>
+                            <span class="l3-btn-label">Make Private</span>
+                            <span class="l3-btn-desc">Change public → private</span>
+                        </button>
+                        <button class="l3-action-btn" id="btn-add-getter" data-step="2">
+                            <span class="l3-btn-icon">📖</span>
+                            <span class="l3-btn-label">Add Getter</span>
+                            <span class="l3-btn-desc">getBalance() method</span>
+                        </button>
+                        <button class="l3-action-btn" id="btn-add-setter" data-step="3">
+                            <span class="l3-btn-icon">✏️</span>
+                            <span class="l3-btn-label">Add Setter</span>
+                            <span class="l3-btn-desc">setBalance() method</span>
+                        </button>
+                    </div>
+                    <div class="l3-progress-bar">
+                        <div class="l3-step-dot" id="l3-p1"><span>1</span></div>
+                        <div class="l3-step-line"></div>
+                        <div class="l3-step-dot" id="l3-p2"><span>2</span></div>
+                        <div class="l3-step-line"></div>
+                        <div class="l3-step-dot" id="l3-p3"><span>3</span></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Success Overlay -->
+            <div id="l3-success" class="l3-success hidden">
+                <div class="l3-success-card">
+                    <div class="l3-success-icon">🔓</div>
+                    <h2>Access Granted!</h2>
+                    <p>Excellent! The Account class is now properly encapsulated.</p>
+                    <div class="l3-success-checks">
+                        <p>✅ private int balance</p>
+                        <p>✅ public int getBalance()</p>
+                        <p>✅ public void setBalance()</p>
+                    </div>
+                    <button class="btn btn-primary" id="btn-l3-continue">Continue to Quiz →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="popup hidden">
+            <div class="popup-content">
+                <h3>⚙️ Settings</h3>
+                <button class="btn btn-secondary" id="btn-logout">🚪 Logout</button>
+                <button class="btn btn-link" id="btn-settings-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
